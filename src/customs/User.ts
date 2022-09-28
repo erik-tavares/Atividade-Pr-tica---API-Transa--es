@@ -2,6 +2,7 @@ import crypto from "crypto";
 
 export class User {
   private _id: string;
+  updateInformation: any;
   get id(): string {
     return this._id;
   }
@@ -23,26 +24,34 @@ export class User {
   get email(): string {
     return this._email;
   }
-  private _transactions: number[];
-  get transactions(): number[] {
+  private _transactions: [];
+  get transactions(): [] {
     return this._transactions;
   }
 
-  constructor(name: string, email: string, age: number, cpf: string) {
+  constructor(
+    name: string,
+    email: string,
+    age: number,
+    cpf: string,
+    transactions: []
+  ) {
     this._id = crypto.randomUUID();
     this._name = name;
+    this._email = email;
     this._age = age;
     this._cpf = cpf;
-    this._email = email;
+    this._transactions = transactions ?? [];
   }
 
   toJson() {
     return {
       id: this._id,
       name: this._name,
-      age: this._age,
       email: this._email,
+      age: this._age,
       cpf: this._cpf,
+      transactions: this._transactions,
     };
   }
 }
