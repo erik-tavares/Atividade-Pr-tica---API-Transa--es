@@ -3,13 +3,17 @@ import { CreateTransactionController } from "./controller/create-transaction";
 import { CreateUsersController } from "./controller/create-users";
 import { RemoveUsersController } from "./controller/delete-users";
 import { GetAllUserConrtroller } from "./controller/get-all-user";
-// import { GetTransactionUserController } from "./controller/get-transaction";
+import { GetTransactionUserController } from "./controller/get-transaction";
 import { GetUsersByIdController } from "./controller/get-user-by-id";
+import { VerifyCpfExistsMiddleware } from "./middlewares/verify-cpf-exist";
+import { ValidatorCpfMiddlaware } from "./middlewares/verify-cpf-user";
 import { createUserMiddlaware } from "./middlewares/verifyUsers";
 
 export default (app: Express) => {
   app.post(
     "/userscreate",
+    new ValidatorCpfMiddlaware().validateCpf,
+    new VerifyCpfExistsMiddleware().verifyCpfExists,
     createUserMiddlaware,
     new CreateUsersController().create
   );
@@ -21,8 +25,8 @@ export default (app: Express) => {
     "/user/:id/transactions",
     new CreateTransactionController().createTransaction
   );
-  // app.get(
-  //   "/user/:userid/transactions/:id",
-  //   new GetTransactionUserController().getAll
-  // );
+  app.get(
+    "/user/:userId/transactions/:id",
+    new GetTransactionUserController().getTransaction
+  );
 };

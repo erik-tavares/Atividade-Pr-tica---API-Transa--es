@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { Transactions } from "./transactions";
 
 export class User {
   private _id: string;
@@ -24,8 +25,8 @@ export class User {
   get email(): string {
     return this._email;
   }
-  private _transactions: [];
-  get transactions(): [] {
+  private _transactions: Transactions[];
+  get transactions(): Transactions[] {
     return this._transactions;
   }
 

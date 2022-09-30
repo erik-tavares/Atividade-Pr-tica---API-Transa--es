@@ -25,6 +25,12 @@ export class Transactions {
     this._type = type;
   }
 
+  informationUpdate(type: string) {
+    if (!["income", "outcome"].some((s) => s === type)) {
+      throw new Error("Type invalid, accepted values: icome, outcome ");
+    }
+  }
+
   toJson() {
     return {
       id: this._id,
